@@ -11,14 +11,18 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
-    <div>
-        smolblog:
-        <a href="{{ url_for('index') }}">Home</a>
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
+    <div class="row u-full-width">
+        <div class="six columns">
+          <h1>smolblog</h1>
+        </div>
+        <div class="u-pull-right">
+          <a class="button" href="{{ url_for('index') }}">Home</a>
+          {% if current_user.is_anonymous %}
+          <a class="button" href="{{ url_for('login') }}">Login</a>
+          {% else %}
+          <a class="button" href="{{ url_for('logout') }}">Logout</a>
+          {% endif %}
+        </div>
     </div>
 
     {% with messages = get_flashed_messages() %}
@@ -32,11 +36,11 @@
     {% endwith %}
 
     {% if current_user.is_authenticated %}
-    <h1>Hi, {{ current_user.username }}</h1>
+    <h3>Hi, {{ current_user.username }}</h3>
     {% else %}
-    <h1>Hi, anonymous!</h1>
+    <h3>Hi, anonymous!</h3>
     {% endif %}
-    
+
     {% block content %}{% endblock %}
 
     <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
