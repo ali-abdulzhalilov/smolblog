@@ -1,4 +1,15 @@
 from flask import Flask
+from config import Config
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+
+
+app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+from app import routes, models, forms
 
 '''
 def create_app(config=None):
@@ -8,7 +19,3 @@ def create_app(config=None):
     #register_other_things(app)
     return app
 '''
-
-app = Flask(__name__)
-
-#from blog import routes
