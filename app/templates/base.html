@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    {% if title %}
+    <title>{{ title }} - smolblog</title>
+    {% else %}
+    <title>im smolblog</title>
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='skeleton.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+
+    <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='main.js') }}"></script>
+  </body>
+</html>
