@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+  {% if current_user.is_authenticated and form %}
   <form action="" method="post">
     {{ form.hidden_tag() }}
     <p>
@@ -19,6 +20,7 @@
     </p>
     <p>{{ form.submit() }}</p>
   </form>
+  {% endif %}
 
   {% for post in posts %}
     {% include '_post.html' %}
