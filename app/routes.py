@@ -2,35 +2,52 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, PostForm
-from app.models import User, Post
+from app.forms import LoginForm, RegistrationForm, PostForm, CommentForm
+from app.models import User, Post, Comment
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
-@login_required
 def index():
-    form = PostForm()
+    form = None
+    if current_user.is_authenticated:
+        form = PostForm()
 
-    if form.validate_on_submit():
+    if not form is None and form.validate_on_submit():
         post = Post(title=form.title.data, body=form.body.data, author=current_user)
         db.session.add(post)
         db.session.commit()
         flash('Your post is live!')
         return redirect(url_for('index'))
 
-    posts = Post.query.all()
+    posts = Post.query.all() #sort by date
     return render_template('index.html', title='Home', form=form, posts=posts)
 
 # post stuff
-@app.route('/view/p/<post_id>')
+@app.route('/view/p/<post_id>', methods=['GET', 'POST'])
 def view_post(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
-    return render_template('view_post.html', post=post)
+    comments = Comment.query.filter_by(post_id=post_id).all()
+
+    if current_user.is_authenticated:
+        form = CommentForm()
+
+    if form.validate_on_submit():
+        if not current_user.is_authenticated: #sanity check
+            return redirect(url_for('index'))
+
+        new_comment = Comment(body=form.body.data, author=current_user, post=post)
+        db.session.add(new_comment)
+        db.session.commit()
+        flash('Your comment is live!')
+        return redirect(url_for('view_post', post_id=post.id))
+
+    return render_template('view_post.html', post=post, form=form, comments=comments)
 
 @app.route('/edit/p/<post_id>', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
+
     if current_user != post.author: #sanity check
         return redirect(url_for('index'))
 

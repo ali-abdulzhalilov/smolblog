@@ -15,4 +15,22 @@
   {% else %}
   <p>by {{ post.author.username }}</p>
   {% endif %}
+
+  {% for comment in comments %}
+  <p>{{ comment.author.username}} said: {{ comment.body }}</p>
+  {% endfor %}
+
+  {% if current_user.is_authenticated and form %}
+  <form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.body.label }} <br>
+        {{ form.body(cols=32, rows=4) }} <br>
+        {% for error in form.body.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+  </form>
+  {% endif %}
 {% endblock %}
