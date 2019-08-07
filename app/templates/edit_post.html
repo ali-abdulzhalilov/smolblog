@@ -1,11 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <a href="{{ url_for('index') }}">To index</a>
+  <a href="{{ url_for('view_post', post_id=post.id) }}">To view</a>
+  <hr>
+  <h3>Edit post</h3>
+
   <form action="" method="post">
     {{ form.hidden_tag() }}
     <p>
         {{ form.title.label }} <br>
-        {{ form.title(size=32)}} <br>
+        {{ form.title(size=32) }} <br>
         {% for error in form.title.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -19,8 +24,4 @@
     </p>
     <p>{{ form.submit() }}</p>
   </form>
-
-  {% for post in posts %}
-    {% include '_post.html' %}
-  {% endfor %}
 {% endblock %}

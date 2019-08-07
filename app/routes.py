@@ -21,6 +21,32 @@ def index():
     posts = Post.query.all()
     return render_template('index.html', title='Home', form=form, posts=posts)
 
+# post stuff
+@app.route('/view/p/<post_id>')
+def view_post(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    return render_template('view_post.html', post=post)
+
+@app.route('/edit/p/<post_id>', methods=['GET', 'POST'])
+@login_required
+def edit_post(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if current_user != post.author: #sanity check
+        return redirect(url_for('index'))
+
+    form = PostForm()
+
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.body = form.body.data
+        db.session.commit()
+        return redirect(url_for('view_post', post_id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.body.data = post.body
+    return render_template('edit_post.html', form=form, post=post)
+
+# login stuff
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
