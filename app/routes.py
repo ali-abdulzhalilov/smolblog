@@ -46,6 +46,19 @@ def edit_post(post_id):
         form.body.data = post.body
     return render_template('edit_post.html', form=form, post=post)
 
+@app.route('/delete/p/<post_id>')
+@login_required
+def delete_post(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    if current_user != post.author: #sanity check
+        return redirect(url_for('index'))
+
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post deleted')
+
+    return redirect(url_for('index'))
+
 # login stuff
 @app.route('/login', methods=['GET', 'POST'])
 def login():
