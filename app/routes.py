@@ -82,6 +82,28 @@ def view_profile(user_id):
     user = User.query.filter_by(id=user_id).first_or_404()
     return render_template('view_profile.html', user=user)
 
+@app.route('/edit/u/<user_id>', methods=['GET', 'POST'])
+@login_required
+def edit_profile(user_id):
+    user = User.query.filter_by(id=user_id).first_or_404()
+
+    if current_user != user: #sanity check
+        return redirect(url_for('index'))
+
+    form = ProfileForm()
+
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.nickname = form.nickname.data
+        user.about_me = form.about_me.data
+        db.session.commit()
+        return redirect(url_for('view_profile', user_id=user.id))
+    elif request.method == 'GET':
+        form.username.data = user.username
+        form.nickname.data = user.nickname
+        form.about_me.data = user.about_me
+    return render_template('edit_profile.html', form=form, user=user)
+
 # login stuff
 @app.route('/login', methods=['GET', 'POST'])
 def login():

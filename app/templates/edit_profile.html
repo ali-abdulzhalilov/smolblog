@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{{ url_for('index') }}">To index</a>
+<a href="{{ url_for('view_profile', user_id=user.id) }}">To view</a>
+<hr>
+<h3>Edit profile</h3>
+<form action="" method="post">
+  {{ form.hidden_tag() }}
+  <p>
+      {{ form.username.label }} <br>
+      {{ form.username(size=32) }}
+      {% for error in form.username.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <p>
+      {{ form.nickname.label }} <br>
+      {{ form.nickname(size=32) }}
+      {% for error in form.nickname.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <p>
+      {{ form.about_me.label }} <br>
+      {{ form.about_me(cols=32, rows=4) }} <br>
+      {% for error in form.about_me.errors %}
+      <span style="color: red;">[{{ error }}]</span>
+      {% endfor %}
+  </p>
+  <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
