@@ -22,9 +22,20 @@ def index():
     posts = Post.query.order_by(Post.timestamp.desc())
     return render_template('index.html', title='Home', form=form, posts=posts)
 
-@app.route('/explore', methods=['GET', 'POST'])
-def explore():
-    pass
+@app.route('/feed', methods=['GET', 'POST'])
+@login_required
+def feed():
+    form = PostForm()
+
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, body=form.body.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is live!')
+        return redirect(url_for('index'))
+
+    posts = current_user.followed_posts()
+    return render_template('index.html', title='Feed', form=form, posts=posts)
 
 # post stuff
 @app.route('/view/p/<post_id>', methods=['GET', 'POST'])
