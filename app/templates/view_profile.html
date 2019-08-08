@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>{{ user.nickname }}</h3>
+  <h4>{{ user.username }}</h4>
+
+  {% if user.about_me %}
+  <p>{{ user.about_me }}</p>
+  {% else %}
+  <p>Nothing here yet.</p>
+  {% endif %}
+  <!--
+    - show user info
+    - if its current_user's profile
+    -   show link to edit page
+  -->
+
+  <!--
+    there be following and followers
+  -->
+
+  {% for post in user.posts %}
+    {% include '_post.html' %}
+  {% endfor %}
+{% endblock %}

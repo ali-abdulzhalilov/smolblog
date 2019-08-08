@@ -20,6 +20,7 @@
           {% if current_user.is_anonymous %}
           <a class="button" href="{{ url_for('login') }}">Login</a>
           {% else %}
+          <a class="button" href="{{ url_for('view_profile', user_id=current_user.id) }}">Profile</a>
           <a class="button" href="{{ url_for('logout') }}">Logout</a>
           {% endif %}
         </div>
@@ -34,12 +35,6 @@
         </ul>
       {% endif %}
     {% endwith %}
-
-    {% if current_user.is_authenticated %}
-    <h3>Hi, {{ current_user.username }}</h3>
-    {% else %}
-    <h3>Hi, anonymous!</h3>
-    {% endif %}
 
     {% block content %}{% endblock %}
 

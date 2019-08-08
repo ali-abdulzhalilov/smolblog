@@ -31,3 +31,9 @@ class CommentForm(FlaskForm):
     body = TextAreaField('Say something', validators=[DataRequired(),
         Length(min=1, max=300)])
     submit = SubmitField('Submit')
+
+class ProfileForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    nickname = StringField('Nickname', validators=[DataRequired()])
+    about_me = TextAreaField('Say something', validators=[Length(max=140)])
+    submit = SubmitField('Submit')

@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, PostForm, CommentForm
+from app.forms import LoginForm, RegistrationForm, PostForm, CommentForm, ProfileForm
 from app.models import User, Post, Comment
 
 @app.route('/', methods=['GET', 'POST'])
@@ -26,12 +26,12 @@ def index():
 @app.route('/view/p/<post_id>', methods=['GET', 'POST'])
 def view_post(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
-    comments = Comment.query.filter_by(post_id=post_id).all()
 
+    form = None
     if current_user.is_authenticated:
         form = CommentForm()
 
-    if form.validate_on_submit():
+    if not form is None and form.validate_on_submit():
         if not current_user.is_authenticated: #sanity check
             return redirect(url_for('index'))
 
@@ -41,7 +41,7 @@ def view_post(post_id):
         flash('Your comment is live!')
         return redirect(url_for('view_post', post_id=post.id))
 
-    return render_template('view_post.html', post=post, form=form, comments=comments)
+    return render_template('view_post.html', post=post, form=form)
 
 @app.route('/edit/p/<post_id>', methods=['GET', 'POST'])
 @login_required
@@ -75,6 +75,12 @@ def delete_post(post_id):
     flash('Post deleted')
 
     return redirect(url_for('index'))
+
+# profile stuff
+@app.route('/view/u/<user_id>')
+def view_profile(user_id):
+    user = User.query.filter_by(id=user_id).first_or_404()
+    return render_template('view_profile.html', user=user)
 
 # login stuff
 @app.route('/login', methods=['GET', 'POST'])
