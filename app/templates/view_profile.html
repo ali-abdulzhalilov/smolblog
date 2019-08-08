@@ -10,8 +10,14 @@
   <p>Nothing here yet.</p>
   {% endif %}
   {% if current_user == user %}
-  <a href="{{ url_for('edit_profile', user_id=current_user.id) }}">Edit profile</a>
+  <a href="{{ url_for('edit_profile', user_id=user.id) }}">Edit profile</a>
+  {% elif not current_user.is_following(user) %}
+  <a href="{{ url_for('follow', user_id=user.id) }}">Follow</a>
+  {% else %}
+  <a href="{{ url_for('unfollow', user_id=user.id) }}">Unfollow</a>
   {% endif %}
+  <p>{{ user.follower_count() }} followers</p>
+  <p>{{ user.followed_count() }} following</p>
   <!--
     - show user info
     - if its current_user's profile

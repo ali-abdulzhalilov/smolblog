@@ -16,7 +16,7 @@
   <p>by <a href="{{ url_for('view_profile', user_id=current_user.id) }}">{{ post.author.username }}</a></p>
   {% endif %}
 
-  {% for comment in post.comments %}
+  {% for comment in comments %}
   <p>{{ comment.author.username}} said: {{ comment.body }}</p>
   {% endfor %}
 
