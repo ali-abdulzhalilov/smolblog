@@ -11,17 +11,18 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
   </head>
   <body>
-    <div class="row u-full-width">
-        <div class="six columns">
-          <h1>smolblog</h1>
+    <div class="header row u-full-width">
+        <div class="logo six columns">
+          <h1><a href="{{ url_for('index') }}">smolblog</a></h1>
         </div>
-        <div class="u-pull-right">
-          <a class="button" href="{{ url_for('index') }}">Home</a>
+        <div class="nav u-pull-right">
           {% if current_user.is_anonymous %}
           <a class="button" href="{{ url_for('login') }}">Login</a>
+          or
+          <a class="button" href="{{ url_for('register') }}">Register</a>
           {% else %}
           <a class="button" href="{{ url_for('feed') }}">Feed</a>
-          <a class="button" href="{{ url_for('view_profile', user_id=current_user.id) }}">{{ current_user.nickname }}</a>
+          <a class="button" href="{{ url_for('view_profile', user_id=current_user.id) }}">Profile</a>
           <a class="button" href="{{ url_for('logout') }}">Logout</a>
           {% endif %}
         </div>
@@ -37,7 +38,9 @@
       {% endif %}
     {% endwith %}
 
+    <div class="content six columns offset-by-three columns">
     {% block content %}{% endblock %}
+    </div>
 
     <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
     <script type="text/javascript" src="{{url_for('static', filename='main.js') }}"></script>

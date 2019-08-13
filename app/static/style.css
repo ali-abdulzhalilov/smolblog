@@ -1,13 +1,135 @@
+
+/* general */
 body {
+  margin:0;
+  padding:0;
+
   font-family: sans-serif;
   background: #eee;
 }
 
-a, h1, h2 {
-  color: #377BA8;
-}
-
 h1, h2, h3, h4 {
+  color: #333;
   font-family: 'Georgia', serif;
   margin: 0;
 }
+/* -------------------- */
+
+/* header */
+.header {
+  background: #ddd;
+  padding: 0.5rem;
+  color: #222;
+}
+
+.logo {
+  padding: 0.2rem 1rem;
+}
+
+.logo a {
+  color: #333;
+  text-decoration: none;
+}
+
+.header .button {
+  margin: 1px;
+  font-size: 12px;
+  padding: 0 10px;
+  width: 100%;
+}
+
+.nav {
+  width: 100%;
+}
+
+@media (min-width: 550px) {
+  .header .button{
+    height: 100%;
+    padding: 10px 10px;
+    width: auto;
+  }
+  .nav {
+    width: auto;
+    float: right;
+  }
+}
+/* -------------------- */
+
+/* content */
+.content {
+  background: #eee;
+  padding: 0 3px;
+}
+
+.content h1 a {
+  color: #222;
+}
+
+.content a {
+  color: #666;
+  text-decoration: none;
+}
+
+.content a:visited {
+  color: #777;
+}
+
+.content a:hover {
+  color: #999;
+}
+/* -------------------- */
+
+/* new post */
+.new-post {
+  border-bottom: 1px solid #aaa;
+  margin: 10px 0;
+  padding-bottom: 7px;
+}
+
+.new-post * {
+  /* border: 1px solid #f00; */
+  margin: 0;
+  width: 100%;
+  padding: 2px 0;
+}
+
+
+/* -------------------- */
+
+/* post */
+.post {
+  background: #f6f6f6;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  margin: 2px 0;
+  padding: 5px;
+}
+
+.post .author, .post .comments-count {
+  width: 50%;
+}
+
+.post * {
+  /* border: 1px solid #F00; */
+  margin: 0;
+}
+
+.post p {
+  margin: 0;
+}
+
+.post-body {
+  padding: 5px 0;
+  border-bottom: 1px solid #999;
+}
+
+@media (min-width: 550px) {
+  .post .author, .post .comments-count {
+    width: 50%;
+  }
+}
+/* -------------------- */
+
+/* form */
+
+/* footer */

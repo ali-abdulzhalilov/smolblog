@@ -23,8 +23,8 @@ class RegistrationForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    body = TextAreaField('Say something', validators=[DataRequired(),
-        Length(min=1, max=300)])
+    body = TextAreaField('Put some text here', validators=[DataRequired(),
+        Length(min=1, max=600)])
     submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
