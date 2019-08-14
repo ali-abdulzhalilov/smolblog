@@ -38,8 +38,10 @@
       {% endif %}
     {% endwith %}
 
-    <div class="content six columns offset-by-three columns">
-    {% block content %}{% endblock %}
+    <div class="content row">
+      <div class="six columns offset-by-three columns">
+        {% block content %}{% endblock %}
+      </div>
     </div>
 
     <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>

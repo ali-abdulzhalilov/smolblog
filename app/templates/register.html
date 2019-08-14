@@ -1,40 +1,59 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h3>Register</h3>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <div class="row">
-          <div class="twelve columns">
-            {{ form.username.label }}
-            {{ form.username(size=32) }}
-            {% for error in form.username.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="row">
-          <div class="twelve columns">
-            {{ form.password.label }}
-            {{ form.password(size=32) }}
-            {% for error in form.password.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="row">
-          <div class="twelve columns">
-            {{ form.password2.label }}
-            {{ form.password2(size=32) }}
-            {% for error in form.password2.errors %}
-            <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="row">
-          <div class="twelve columns">
-            <p>{{ form.submit() }}</p>
-          </div>
-        </div>
-    </form>
+  <div class="row">
+    <div class="twelve columns">
+      <h3>Register</h3>
+    </div>
+  </div>
+
+  <form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+
+    <div class="row">
+      <div class="six columns">
+        <h5>{{ form.username.label }}</h5>
+      </div>
+      <div class="six columns">
+        {{ form.username(size=32) }}
+      </div>
+      <div class="twelve columns">
+        {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="six columns">
+        <h5>{{ form.password.label }}</h5>
+      </div>
+      <div class="six columns">
+        {{ form.password(size=32) }}
+      </div>
+      <div class="twelve columns">
+        {% for error in form.password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="six columns">
+        <h5>{{ form.password2.label }}</h5>
+      </div>
+      <div class="six columns">
+        {{ form.password2(size=32) }}
+      </div>
+      <div class="twelve columns">
+        {% for error in form.password2.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="row">
+      {{ form.submit() }}
+    </div>
+  </form>
 {% endblock %}

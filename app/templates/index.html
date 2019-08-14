@@ -1,21 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+  {% if current_user.is_authenticated and form %}
   <div class="new-post row">
-    {% if current_user.is_authenticated and form %}
+    <div class="twelve columns">
+      <h3>New Post</h3>
+    </div>
     <form action="" method="post">
       {{ form.hidden_tag() }}
 
-      <div class="row">
-        <h4>{{ form.title.label }}</h4>
+      <div class="twelve columns">
+        <h5>{{ form.title.label }}</h5>
         {{ form.title(size=32)}} <br>
         {% for error in form.title.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
       </div>
-      <div class="row">
-        <h4>{{ form.body.label }}</h4>
+      <div class="twelve columns">
+        <h5>{{ form.body.label }}</h5>
         {{ form.body(cols=32, rows=6) }} <br>
         {% for error in form.body.errors %}
         <span style="color: red;">[{{ error }}]</span>
