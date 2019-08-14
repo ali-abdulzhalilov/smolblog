@@ -1,33 +1,60 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href="{{ url_for('index') }}">To index</a>
-<a href="{{ url_for('view_profile', user_id=user.id) }}">To view</a>
-<hr>
-<h3>Edit profile</h3>
-<form action="" method="post">
-  {{ form.hidden_tag() }}
-  <p>
-      {{ form.username.label }} <br>
-      {{ form.username(size=32) }}
-      {% for error in form.username.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-  </p>
-  <p>
-      {{ form.nickname.label }} <br>
-      {{ form.nickname(size=32) }}
-      {% for error in form.nickname.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-  </p>
-  <p>
-      {{ form.about_me.label }} <br>
-      {{ form.about_me(cols=32, rows=4) }} <br>
-      {% for error in form.about_me.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-  </p>
-  <p>{{ form.submit() }}</p>
-</form>
+  <div class="row">
+    <div class="twelve columns">
+      <a class="button" href="{{ url_for('index') }}">To index</a>
+      <a class="button" href="{{ url_for('view_profile', user_id=user.id) }}">To view</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <h3>Edit profile</h3>
+    </div>
+  </div>
+  <div class="row">
+    <form action="" method="post">
+      {{ form.hidden_tag() }}
+
+      <div class="row">
+        <div class="six columns">
+          <h5>{{ form.username.label }}</h5>
+        </div>
+        <div class="six columns">
+          {{ form.username(size=32) }}
+        </div>
+        <div class="twelve columns">
+          {% for error in form.username.errors %}
+          <pre><code><span>[{{ error }}]</span></code></pre>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="six columns">
+          <h5>{{ form.nickname.label }}</h5>
+        </div>
+        <div class="six columns">
+          {{ form.nickname(size=32) }}
+        </div>
+        <div class="twelve columns">
+          {% for error in form.nickname.errors %}
+          <pre><code><span>[{{ error }}]</span></code></pre>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="twelve columns">
+          <h5>{{ form.about_me.label }}</h5>
+          {{ form.about_me(cols=32, rows=6) }} <br>
+          {% for error in form.about_me.errors %}
+          <pre><code><span>[{{ error }}]</span></code></pre>
+          {% endfor %}
+        </div>
+      </div>
+
+      <p>{{ form.submit() }}</p>
+    </form>
+  </div>
 {% endblock %}

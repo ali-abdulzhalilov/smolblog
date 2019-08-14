@@ -19,8 +19,15 @@ def index():
         flash('Your post is live!')
         return redirect(url_for('index'))
 
-    posts = Post.query.order_by(Post.timestamp.desc())
-    return render_template('index.html', title='Home', form=form, posts=posts)
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('index', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template('index.html', title='Home', form=form, posts=posts.items,
+                                         next_url=next_url, prev_url=prev_url)
 
 @app.route('/feed', methods=['GET', 'POST'])
 @login_required
@@ -34,8 +41,15 @@ def feed():
         flash('Your post is live!')
         return redirect(url_for('index'))
 
-    posts = current_user.followed_posts()
-    return render_template('index.html', title='Feed', form=form, posts=posts)
+    page = request.args.get('page', 1, type=int)
+    posts = current_user.followed_posts().paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('index', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template('index.html', title='Feed', form=form, posts=posts.items,
+                                         next_url=next_url, prev_url=prev_url)
 
 # post stuff
 @app.route('/view/p/<post_id>', methods=['GET', 'POST'])
@@ -96,7 +110,16 @@ def delete_post(post_id):
 @app.route('/view/u/<user_id>')
 def view_profile(user_id):
     user = User.query.filter_by(id=user_id).first_or_404()
-    return render_template('view_profile.html', user=user)
+    page = request.args.get('page', 1, type=int)
+    posts = user.posts.order_by(Post.timestamp.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('index', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) \
+        if posts.has_prev else None
+
+    return render_template('view_profile.html', user=user, posts=posts.items,
+                                         next_url=next_url, prev_url=prev_url)
 
 @app.route('/edit/u/<user_id>', methods=['GET', 'POST'])
 @login_required

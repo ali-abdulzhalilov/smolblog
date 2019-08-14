@@ -13,14 +13,14 @@
         <h5>{{ form.title.label }}</h5>
         {{ form.title(size=32)}} <br>
         {% for error in form.title.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <pre><code><span>[{{ error }}]</span></code></pre>
         {% endfor %}
       </div>
       <div class="twelve columns">
         <h5>{{ form.body.label }}</h5>
         {{ form.body(cols=32, rows=6) }} <br>
         {% for error in form.body.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <pre><code><span>[{{ error }}]</span></code></pre>
         {% endfor %}
       </div>
       <p>{{ form.submit() }}</p>
@@ -32,5 +32,13 @@
   {% for post in posts %}
     {% include '_post.html' %}
   {% endfor %}
+  </div>
+  <div class="row">
+    {% if prev_url %}
+    <a class="button" href="{{ prev_url}}">Newer posts</a>
+    {% endif %}
+    {% if next_url %}
+    <a class="button u-pull-right" href="{{ next_url}}">Older posts</a>
+    {% endif %}
   </div>
 {% endblock %}

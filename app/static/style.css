@@ -121,8 +121,12 @@ h1, h2, h3, h4, h5, h6 {
   padding: 5px;
 }
 
-.post .author, .post .comments-count {
-  width: 50%;
+.post .author {
+  width: 70%;
+}
+
+.post .comments-count {
+  width: 30%;
 }
 
 .post * {

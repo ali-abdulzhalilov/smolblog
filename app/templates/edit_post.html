@@ -1,27 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <a href="{{ url_for('index') }}">To index</a>
-  <a href="{{ url_for('view_post', post_id=post.id) }}">To view</a>
-  <hr>
-  <h3>Edit post</h3>
-  <a href="{{ url_for('delete_post', post_id=post.id) }}">Delete post</a>
-  <form action="" method="post">
-    {{ form.hidden_tag() }}
-    <p>
-        {{ form.title.label }} <br>
-        {{ form.title(size=32) }} <br>
+  <div class="row">
+    <div class="twelve columns">
+      <a class="button" href="{{ url_for('index') }}">To index</a>
+      <a class="button" href="{{ url_for('view_post',post_id=post.id) }}">To view</a>
+      <a class="button u-pull-right" href="{{ url_for('delete_post', post_id=post.id) }}">Delete post</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="twelve columns">
+      <h3>Edit post</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <form action="" method="post">
+      {{ form.hidden_tag() }}
+
+      <div class="twelve columns">
+        <h5>{{ form.title.label }}</h5>
+        {{ form.title(size=32)}} <br>
         {% for error in form.title.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <pre><code><span>[{{ error }}]</span></code></pre>
         {% endfor %}
-    </p>
-    <p>
-        {{ form.body.label }} <br>
-        {{ form.body(cols=32, rows=4) }} <br>
+      </div>
+      <div class="twelve columns">
+        <h5>{{ form.body.label }}</h5>
+        {{ form.body(cols=32, rows=6) }} <br>
         {% for error in form.body.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <pre><code><span>[{{ error }}]</span></code></pre>
         {% endfor %}
-    </p>
-    <p>{{ form.submit() }}</p>
-  </form>
+      </div>
+
+      <p>{{ form.submit() }}</p>
+    </form>
+  </div>
 {% endblock %}
