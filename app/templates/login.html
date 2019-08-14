@@ -19,7 +19,7 @@
       </div>
       <div class="twelve columns">
         {% for error in form.username.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <pre><code><span>[{{ error }}]</span></code></pre>
         {% endfor %}
       </div>
     </div>
@@ -33,7 +33,7 @@
       </div>
       <div class="twelve columns">
         {% for error in form.password.errors %}
-        <span style="color: red;">[{{ error }}]</span>
+        <pre><code><span>[{{ error }}]</span></code></pre>
         {% endfor %}
       </div>
     </div>

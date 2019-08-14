@@ -28,18 +28,18 @@
         </div>
     </div>
 
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-
     <div class="content row">
       <div class="six columns offset-by-three columns">
+        <div class="row flash-messages">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <pre><code><span>{{ message }}</span></code></pre>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+
         {% block content %}{% endblock %}
       </div>
     </div>

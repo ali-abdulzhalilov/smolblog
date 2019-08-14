@@ -17,6 +17,16 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 550px) {
   h6 { font-size: 2.0rem; }
 }
+
+.flash-messages code {
+  background-color: #ffc;
+  padding: 0;
+  font-size: 1.5rem;
+}
+
+.flash-messages span {
+  padding: 0 10px;
+}
 /* -------------------- */
 
 /* header */
@@ -154,6 +164,18 @@ form .remember-button {
 
 form .remember-label {
   width: 60%;
+}
+
+form code {
+  background-color: #fcc;
+  padding: 0;
+  margin: 5px 0;
+  /* font-family: 'Georgia', serif; */
+}
+
+form span {
+  padding: 0 10px;
+  font-size: 1.5rem;
 }
 
 @media (min-width: 550px) {
